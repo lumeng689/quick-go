@@ -18,8 +18,8 @@ var (
 )
 
 type Vertex struct {
-	X int
-	Y int
+	X float64
+	Y float64
 }
 
 func main() {
@@ -137,6 +137,93 @@ func main() {
 
 	fmt.Println(Vertex{1, 2})
 
+	v := Vertex{1, 2}
+	v.X = 4
+	fmt.Println(v.X)
+
+	var v1 = Vertex{X: 1}
+	fmt.Println(v1.X)
+
+	var arr [2]string
+	arr[0] = "Hello"
+	arr[1] = "world"
+	fmt.Println(arr[0], arr[1])
+	fmt.Println(arr)
+
+	pa := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("p ==", pa)
+
+	for i := 0; i < len(pa); i++ {
+		fmt.Printf("pa[%d] == %d\n", i, pa[i])
+	}
+
+	fmt.Println("pa[1:4] ==", pa[1:4])
+
+	arr1 := make([]int, 5)
+	printSlice("arr1", arr1)
+	arr2 := make([]int, 0, 5)
+	printSlice("arr2", arr2)
+
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+
+	for i := range pow {
+		pow[i] = 1 << uint(i)
+	}
+	for _, value := range pow {
+		fmt.Printf("%d\n", value)
+	}
+
+	var m map[string]Vertex
+	m = make(map[string]Vertex)
+
+	m["Bell labs"] = Vertex{1, 3}
+	fmt.Println(m["Bell labs"])
+
+	var m2 = map[string]Vertex{
+		"Bell Labs": Vertex{
+			40.68433, -74.39967,
+		},
+		"Google": Vertex{
+			37.42202, -122.08408,
+		},
+	}
+
+	fmt.Println("m2...", m2["Google"])
+
+	m3 := make(map[string]int)
+
+	m3["Answer"] = 42
+	fmt.Println("The value:", m3["Answer"])
+
+	m3["Answer"] = 48
+	fmt.Println("The value:", m3["Answer"])
+
+	delete(m3, "Answer")
+	fmt.Println("The value:", m3["Answer"])
+
+	// 通过双赋值检测某个键存在
+	// 如果 key 在 m 中，`ok` 为 true 。否则， ok 为 `false`，并且 elem 是 map 的元素类型的零值。
+	v11, ok1 := m3["Answer"]
+	fmt.Println("The value:", v11, "Present?", ok1)
+
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+
+	fmt.Println(hypot(3, 4))
+
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+	}
+
 	fmt.Println("......End main......")
 }
 
@@ -165,4 +252,17 @@ func pow(x, n, lim float64) float64 {
 		fmt.Printf("%g >= %g \n", v, lim)
 	}
 	return lim
+}
+
+func printSlice(s string, x []int) {
+	fmt.Printf("%s len=%d cap=%d %v\n",
+		s, len(x), cap(x), x)
+}
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
 }
