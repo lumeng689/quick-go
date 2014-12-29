@@ -6,6 +6,7 @@ import (
 	"math/cmplx"
 	"math/rand"
 	"runtime"
+	"test2"
 	"time"
 )
 
@@ -223,6 +224,14 @@ func main() {
 			neg(-2*i),
 		)
 	}
+
+	//	test.TestHttp()
+
+	test2.GoroutineTest1()
+	test2.ChannelTest()
+	test2.ChannelTest2()
+	test2.ChannelTest3()
+	test2.ChannelTest4()
 
 	fmt.Println("......End main......")
 }
