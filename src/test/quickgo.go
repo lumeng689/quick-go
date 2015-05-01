@@ -6,6 +6,7 @@ import (
 	"math/cmplx"
 	"math/rand"
 	"runtime"
+	"strconv"
 	"time"
 )
 
@@ -20,6 +21,19 @@ var (
 type Vertex struct {
 	X float64
 	Y float64
+}
+
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v,%s", e.When, e.What)
 }
 
 func main() {
@@ -224,6 +238,19 @@ func main() {
 		)
 	}
 
+	v4 := &Vertex{3, 4}
+	fmt.Println(v4.Abs())
+
+	if err := run2(); err != nil {
+		fmt.Println(err)
+	}
+
+	iii, err := strconv.Atoi("42")
+	if err != nil {
+		fmt.Printf("couldn't convert number: %v\n", err)
+	}
+	fmt.Println("Converted integer:", iii)
+
 	fmt.Println("......End main......")
 }
 
@@ -265,4 +292,8 @@ func adder() func(int) int {
 		sum += x
 		return sum
 	}
+}
+
+func run2() error {
+	return &MyError{time.Now(), "it didn't work"}
 }
