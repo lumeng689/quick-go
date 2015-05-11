@@ -69,3 +69,8 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+# idea
+.idea
+*.iml
+**/rebel.xml
