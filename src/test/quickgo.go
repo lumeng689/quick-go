@@ -13,9 +13,9 @@ import (
 var c, python, java bool
 
 var (
-	ToBe   bool       = false
-	MaxInt uint64     = 1<<64 - 1
-	z      complex128 = cmplx.Sqrt(-5 + 12i)
+	ToBe bool = false
+	MaxInt uint64 = 1<<64 - 1
+	z complex128 = cmplx.Sqrt(-5 + 12i)
 )
 
 type Vertex struct {
@@ -32,9 +32,22 @@ type MyError struct {
 	What string
 }
 
+// e *MyError e 大致类似this左右
 func (e *MyError) Error() string {
 	return fmt.Sprintf("at %v,%s", e.When, e.What)
 }
+
+// interface{}类型对应Java中的Object
+type Stack struct {
+	data []interface{}
+}
+
+// 枚举
+const (
+	first = iota  // first == 0
+	second        // second == 1
+	third       // third == 2
+)
 
 func main() {
 	fmt.Println("Hello world!")
@@ -52,7 +65,7 @@ func main() {
 	fmt.Println(split(33))
 
 	var i, j int = 1, 2
-	// 另一种声明方式
+	// 另一种声明方式 短声明
 	k := 3
 	fmt.Println(i, j, k, c, python, java)
 
@@ -60,6 +73,9 @@ func main() {
 	fmt.Printf(f, ToBe, ToBe)
 	fmt.Printf(f, MaxInt, MaxInt)
 	fmt.Printf(f, z, z)
+
+	// 只能单独存在，不能x=i++
+	i++;
 
 	var x, y int = 3, 4
 	var f1 float64 = math.Sqrt(float64(x*x + y*y))
@@ -90,6 +106,7 @@ func main() {
 
 	fmt.Print("Go runs on ")
 	os := runtime.GOOS
+	// switch 不向下传递
 	switch os {
 	case "darwin":
 		fmt.Println("OS X.")
@@ -187,6 +204,7 @@ func main() {
 	for i := range pow {
 		pow[i] = 1 << uint(i)
 	}
+	// 黑洞  不关注返回值
 	for _, value := range pow {
 		fmt.Printf("%d\n", value)
 	}
