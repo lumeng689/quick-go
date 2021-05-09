@@ -1,0 +1,2 @@
+# quickgo
+learn go
