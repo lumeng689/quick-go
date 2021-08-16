@@ -2,6 +2,8 @@ package test
 
 import (
 	"bufio"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"testing"
@@ -28,4 +30,32 @@ func Test_IO001(t *testing.T) {
 
 	dataWriter.Flush()
 	file.Close()
+}
+
+func TestFile001(t *testing.T) {
+	dir, _ := os.Getwd()
+	fmt.Println("current path:", dir)
+
+	stat, err := os.Stat(dir)
+
+	if err != nil {
+		if os.IsExist(err) {
+			fmt.Println("file exists...")
+		} else {
+			fmt.Println("file not exits!")
+		}
+	}
+
+	fmt.Println("is directory: ", stat.IsDir())
+
+	files, err := ioutil.ReadDir(dir)
+
+	for _, v := range files {
+		if v.IsDir() {
+			fmt.Println("sub directory:", v.Name())
+		} else {
+			fmt.Println("file:", v.Name())
+			fmt.Println("abs path: ", dir+string(os.PathSeparator)+v.Name())
+		}
+	}
 }
