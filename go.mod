@@ -12,6 +12,7 @@ require (
 	github.com/armon/go-metrics v0.3.9 // indirect
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/elastic/go-elasticsearch/v7 v7.14.0
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
@@ -40,6 +41,7 @@ require (
 	github.com/prometheus/procfs v0.7.2 // indirect
 	github.com/reactivex/rxgo/v2 v2.5.0
 	github.com/spf13/cast v1.4.0 // indirect
+	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	github.com/ugorji/go v1.2.6 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.0
