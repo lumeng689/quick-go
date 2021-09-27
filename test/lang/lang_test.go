@@ -65,6 +65,10 @@ func Test_SizeOf(t *testing.T) {
 
 	m2 := make(map[string]int, 0)
 	fmt.Println("map2: ", unsafe.Sizeof(m2))
+
+	type Add func(int, int) int
+	var add Add
+	fmt.Println("func: ", unsafe.Sizeof(add)) // 8
 }
 
 func Test_SizeOf02(t *testing.T) {
@@ -175,4 +179,53 @@ func changeMap002(m *map[string]int) {
 	//m["three"] = 3 //这种方式会报错 invalid operation: m["three"] (type *map[string]int does not support indexing)
 	(*m)["three"] = 3                    //正确
 	fmt.Printf("changeMap func %p\n", m) //changeMap func 0x0
+}
+
+func TestFunc001(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("recover from error, %v \n", err)
+		}
+	}()
+
+	var f func()
+
+	f()
+}
+
+func TestRecover002(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("recover from error, %v \n", err)
+		}
+	}()
+
+	a := 0
+	c := 1 / a
+
+	fmt.Println("c=", c)
+}
+
+func TestCmp001(t *testing.T) {
+	type T struct {
+		a interface{}
+		b int
+	}
+	var x interface{} = []int{}
+	var y = T{a: x}
+	var z = [3]T{{a: y}}
+
+	// 这三个比较均会产生一个恐慌。
+	_ = x == x
+	_ = y == y
+	_ = z == z
+}
+
+func TestCmp002(t *testing.T) {
+	// 切片/映射/函数类型为不可比较类型
+	// 数组是可比较类型
+	var a [3]int = [3]int{1, 2, 3}
+	var b [3]int = [3]int{1, 2, 3}
+
+	fmt.Println("compare result: ", a == b)
 }

@@ -72,7 +72,6 @@ func TestSlice004(t *testing.T) {
 	wg.Wait()
 }
 
-
 func TestStress(t *testing.T) {
 	iters := 1000000
 	if testing.Short() {
@@ -89,8 +88,7 @@ func TestStress(t *testing.T) {
 func aaa() {
 	var s []string
 
-
-	for i := 0;i < 64;i++ {
+	for i := 0; i < 64; i++ {
 		go func() {
 			s = append(s, "a")
 		}()
@@ -104,7 +102,7 @@ func TestStress001(t *testing.T) {
 }
 
 type MyData struct {
-	aByte   byte
+	aByte byte
 	//anotherByte byte
 	aShort  int16
 	anInt32 int32
@@ -129,7 +127,7 @@ func TestMemLayout002(t *testing.T) {
 		aByte:   0x1,
 		aShort:  0x0203,
 		anInt32: 0x04050607,
-		aSlice:  []byte{
+		aSlice: []byte{
 			0x08, 0x09, 0x0a,
 		},
 	}
@@ -140,4 +138,43 @@ func TestMemLayout002(t *testing.T) {
 	dataslice := *(*reflect.SliceHeader)(unsafe.Pointer(&data.aSlice))
 	fmt.Printf("Slice data is %#v\n",
 		(*[3]byte)(unsafe.Pointer(dataslice.Data)))
+}
+
+//
+// go test -bench=SliceExpand -benchmem
+//
+func TestSliceAppend001(t *testing.T) {
+	var arr []int
+	for i := 0; i < 1282; i++ {
+		arr = append(arr, i)
+		fmt.Printf("pointer: %p, len: %v, cap:%v \n", arr, len(arr), cap(arr))
+	}
+}
+
+func TestSliceOp001(t *testing.T) {
+
+	var a = make([]int, 3)
+
+	b := a[:4]
+	// 会报错  panic: runtime error: slice bounds out of range [:4] with capacity 3 [recovered]
+	fmt.Println("b:", b)
+}
+
+func TestSliceOp002(t *testing.T) {
+	var s *[]string
+	fmt.Println(*s)
+}
+
+func TestSliceOp003(t *testing.T) {
+	type IntSlice []int
+	type MySlice []int
+
+	var a IntSlice
+	a = append(a, 1)
+
+	var b MySlice
+	b = append(b, 11)
+
+	fmt.Printf("a=%#v \n", a)
+	fmt.Printf("b=%#v \n", b)
 }
