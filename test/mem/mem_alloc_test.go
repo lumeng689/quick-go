@@ -19,7 +19,7 @@ func run() {
 
 	for i := 0; i < iter; i++ {
 		data[i] = node{
-			ident: ts,
+			ident:   ts,
 			context: ts + ts + ts,
 		}
 	}
@@ -43,11 +43,18 @@ func batchRun() {
 	wg.Wait()
 }
 
-func Test_MemAlloc001(t  *testing.T) {
+func Test_MemAlloc001(t *testing.T) {
 	start := time.Now()
 	for i := 0; i < 100; i++ {
 		batchRun()
 	}
+
+	cost := time.Since(start)
+	fmt.Printf("time cost: %+v \n", cost)
+}
+
+func Test_MemAlloc002(t *testing.T) {
+	start := time.Now()
 
 	cost := time.Since(start)
 	fmt.Printf("time cost: %+v \n", cost)

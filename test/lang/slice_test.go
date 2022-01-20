@@ -178,3 +178,17 @@ func TestSliceOp003(t *testing.T) {
 	fmt.Printf("a=%#v \n", a)
 	fmt.Printf("b=%#v \n", b)
 }
+
+func TestSliceOp004(t *testing.T) {
+	a := make([]int, 0)
+	a = append(a, 0)
+	a = append(a, 1)
+
+	fmt.Println(a[2 : len(a)-1])
+}
+
+func TestSliceOp005(t *testing.T) {
+	a := []int{0, 1, 2, 3, 4}
+
+	fmt.Println(a[0:2])
+}

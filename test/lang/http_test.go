@@ -49,3 +49,19 @@ func Test_HttpGet001(t *testing.T) {
 		fmt.Printf("data is:%v 、n", msg.Data)
 	}
 }
+
+func Test_HttpGet002(t *testing.T) {
+
+	req, _ := http.NewRequest("GET", "http://www.baidu.com", nil)
+
+	c := http.DefaultClient
+
+	for i := 0; i < 500; i++ {
+		rsp, err := c.Do(req)
+
+		if err != nil {
+			panic(err)
+		}
+		defer rsp.Body.Close()
+	}
+}

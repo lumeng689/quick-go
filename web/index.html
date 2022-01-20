@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>测试</title>
+    <meta name="referrer" content="never"/>
+</head>
+<body>
+<video id="video" crossorign="anonymous"
+       src="https://v3-opensdksv.onewsvod.com/39d0128d1c21a4cfc975490c20188af5/61d81585/video/tos/cn/tos-cn-ve-0022/4534b563b36e418ea899ee7d957ff1fd/?a=34&br=1033&bt=1033&cd=0%7C0%7C0&ch=0&cr=0&cs=0&cv=1&dr=3&ds=3&er=&ft=tdS_s88-oKdDz7nz7TQ_plXxuhsd2sANHqY&l=20220107172710010212198035154B0ECC&lr=toutiao_open&mime_type=video_mp4&net=0&pl=0&qs=0&rc=am9zOmg6ZjY5OTMzNDkzM0ApZDc4ZWU4aGU1N2lmNWk6Z2c1a2lucjRvLmFgLS1kLjBzczIwYTA1NDIyMTEtMi02YTU6Yw%3D%3D&vl=&vr="
+       style="border:1px solid gray" width="100%" height="100%" controls="controls"></video>
+<div style="postion: absolute;left:700px;top: 100px">
+    <button id="start">开始播放</button>
+    <button id="resume">暂停</button>
+</div>
+</body>
+<script>
+   window.onload = function() {
+       document.getElementById("start").onclick = function() {
+           let video = document.getElementById("video");
+           video.play();
+       }
+       document.getElementById("resume").onclick = function() {
+           let video = document.getElementById("video");
+           video.pause();
+       }
+   }
+</script>
+</html>
